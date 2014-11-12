@@ -1,10 +1,12 @@
 messageApp.controller("MessageController", function($scope, MessageService, $filter)
 {
 	$scope.messageData = [];
-	$scope.hasError = false;
 
 	$scope.getNewMessages = function()
 	{
+		$scope.hasError = false;
+		$scope.hasNoMessagesError = false;
+
 		MessageService.getMessages().then(
 		/* success */
 		function(messages)
@@ -12,6 +14,7 @@ messageApp.controller("MessageController", function($scope, MessageService, $fil
 			var i;
 			var newMessage;
 			var isUniqueMessage = false;
+			var hasUnique = false;
 
 			for (i = 0; i < messages.length; i++)
 			{
@@ -20,8 +23,14 @@ messageApp.controller("MessageController", function($scope, MessageService, $fil
 
 				if (isUniqueMessage)
 				{
+					hasUnique = true;
 					$scope.messageData.unshift(newMessage);
 				}
+			}
+
+			if (!hasUnique)
+			{
+				$scope.hasNoMessagesError = true;
 			}
 		},
 		/* failure */
