@@ -7,12 +7,13 @@
     <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>-->
     <script src="lib/angular-1.2.6/angular.min.js"></script>
     <script src="messageApp.js"></script>
+    <script src="services/MessageService.js"></script>
     <script src="controllers/MessageController.js"></script>
 </head>
 <body ng-app="messageApp" ng-controller="MessageController">
 <h1>Latest Messages from adaptive-test-api</h1>
 <section id="messageControl">
-    <button>Load More</button>
+    <button ng-click="getNewMessages()">Load More</button>
     <button>Clear All</button>
 </section>
 <section id="messageFilter">

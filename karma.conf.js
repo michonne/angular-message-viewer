@@ -23,7 +23,9 @@ module.exports = function(config) {
       'lib/angular-1.2.6/angular-route.js',
       'messageApp.js',
       'controllers/MessageController.js',
-      'tests/controllerTests.js'
+      'services/MessageService.js',
+      'tests/controllerTests.js',
+      'tests/serviceTests.js'
     ],
 
 
