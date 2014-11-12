@@ -45,5 +45,12 @@ messageApp.controller("MessageController", function($scope, MessageService, $fil
 		});
 	};
 
+	$scope.clearAllMessages = function()
+	{
+		$scope.messageData = [];
+		$scope.hasError = false;
+		$scope.hasNoMessagesError = false;
+	};
+
 	$scope.getNewMessages();
 });
