@@ -10,31 +10,37 @@
     <script src="services/MessageService.js"></script>
     <script src="filters/uniqueMessageFilter.js"></script>
     <script src="controllers/MessageController.js"></script>
+
+    <!-- Twitter Bootstrap Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 </head>
-<body ng-app="messageApp" ng-controller="MessageController">
+<body ng-app="messageApp" ng-controller="MessageController" class="container">
 <h1>Latest Messages from adaptive-test-api</h1>
-<section id="messageControl">
-    <button ng-click="getNewMessages()">Load More</button>
-    <button ng-click="clearAllMessages()">Clear All</button>
+<section id="messageControl" class="page-header">
+    <button ng-click="getNewMessages()" class="btn btn-lg btn-primary">Load More</button>
+    <button ng-click="clearAllMessages()" class="btn btn-lg btn-primary">Clear All</button>
 </section>
+<!-- Sorting model not affecting array
 <section id="messageFilter">
     <label>Order Messages By: </label>
-    <select>
+    <select ng-model="orderMessages">
         <option value="updated_at">Latest Messages</option>
         <option value="sentiment">Sentiment</option>
     </select>
-</section>
-<div class="alert alert-danger" ng-show="hasError">We are currently experiencing some issues with the service.<br/>
+</section>-->
+<div class="alert alert-danger container" ng-show="hasError">We are currently experiencing some issues with the
+    service.<br/>
     Please try again later.
 </div>
-<div class="alert alert-info" ng-show="hasNoMessagesError">There are no new messages right now.<br/>Please try again
+<div class="alert alert-info container" ng-show="hasNoMessagesError">There are no new messages right now.<br/>Please
+    try again
     later.</div>
-<div id="messageContainer">
-    <ul ng-repeat="message in messageData track by $index">
-        <li>{{message.user_handle}}</li>
-        <li>{{message.message}}</li>
-        <li>{{message.updated_at | date: 'medium'}}</li>
-        <li>{{message.sentiment}}</li>
+<div id="messageContainer" class="container">
+    <ul ng-repeat="message in messageData track by $index | orderBy:orderMessages" class="list-unstyled list-group">
+        <li><h4 class="list-group-item-heading">{{message.user_handle}}</h4></li>
+        <li class="list-group-item-text">{{message.message}}</li>
+        <li class="label label-default">{{message.updated_at | date: 'medium'}}</li>
+        <li class="label label-default">{{message.sentiment}}</li>
     </ul>
 </div>
 </body>
