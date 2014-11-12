@@ -1,23 +1,40 @@
-messageApp.controller("MessageController", function($scope)
+messageApp.controller("MessageController", function($scope, MessageService, $filter)
 {
-	$scope.messageData = [
+	$scope.messageData = [];
+	$scope.hasError = false;
+
+	$scope.getNewMessages = function()
+	{
+		MessageService.getMessages().then(
+		/* success */
+		function(messages)
 		{
-			"created_at": "2012-09-27T16:15:06Z",
-			"followers": 5,
-			"id": 8,
-			"message": "Tweet me your fav drinks #drinks",
-			"sentiment": 0,
-			"updated_at": "2012-09-27T16:15:06Z",
-			"user_handle": "@drinkies"
+			var i;
+			var newMessage;
+			var isUniqueMessage = false;
+
+			for (i = 0; i < messages.length; i++)
+			{
+				newMessage = messages[i];
+				isUniqueMessage = $filter("uniqueMessageFilter")($scope.messageData, newMessage);
+
+				if (isUniqueMessage)
+				{
+					$scope.messageData.unshift(newMessage);
+				}
+			}
 		},
+		/* failure */
+		function(e)
 		{
-			"created_at": "2012-09-27T16:11:44Z",
-			"followers": 345,
-			"id": 4,
-			"message": "Who likes coca-cola?",
-			"sentiment": 0,
-			"updated_at": "2012-09-27T16:11:44Z",
-			"user_handle": "@questionnr"
-		}
-	];
+			console.log("WE GOT A FAILURE!!! " + e.error.message);
+			$scope.hasError = true;
+		})
+		.catch(function(error)
+		{
+			console.log("SOME OTHER FAILURE HAPPENED??? " + error);
+		});
+	};
+
+	$scope.getNewMessages();
 });
