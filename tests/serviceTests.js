@@ -1,11 +1,12 @@
-describe("Unit: MessageService", function() {
-
+describe("Unit: MessageService", function()
+{
 	var service;
 	var $httpBackend;
 
 	beforeEach(module("messageApp"));
 
-	beforeEach(inject(function(MessageService, _$httpBackend_){
+	beforeEach(inject(function(MessageService, _$httpBackend_)
+	{
 		service = MessageService;
 		$httpBackend = _$httpBackend_;
 	}));

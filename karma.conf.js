@@ -25,7 +25,8 @@ module.exports = function(config) {
       'controllers/MessageController.js',
       'services/MessageService.js',
       'tests/controllerTests.js',
-      'tests/serviceTests.js'
+      'tests/serviceTests.js',
+      'tests/filterTests.js'
     ],
 
 

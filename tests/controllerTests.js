@@ -1,5 +1,5 @@
-describe("Unit: MessageController", function() {
-
+describe("Unit: MessageController", function()
+{
 	var $rootScope;
 	var $scope;
 	var $controller;
@@ -17,14 +17,20 @@ describe("Unit: MessageController", function() {
 		$controller("MessageController", {'$scope': $scope});
 
 		$httpBackend.expect("GET", "http://adaptive-test-api.herokuapp.com/tweets.json");
-
-		$httpBackend.whenGET("http://adaptive-test-api.herokuapp.com/tweets.json").respond({
-			success: [{"message": "test message"}]
-		});
 	}));
 
 	it("Should create a messageData array", function()
 	{
+		$httpBackend.whenGET("http://adaptive-test-api.herokuapp.com/tweets.json").respond({
+			success: [{"message": "test message"}]
+		});
+
 		expect($scope.messageData instanceof Array).toBeTruthy();
+	});
+
+	it("Should set hasError to true if the request fails", function()
+	{
+		//$httpBackend.whenGET("http://adaptive-test-api.herokuapp.com/tweets.json").respond(500);
+		//expect($scope.hasError).toBeTruthy();
 	});
 });
